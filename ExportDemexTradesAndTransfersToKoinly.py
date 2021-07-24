@@ -34,7 +34,7 @@ myMnemonic = 'these are twelve words that used together allow access to your wal
 # Provide the Demex addresses that you want to pull trades and transfers for
 demexAddresses = [
     'swth1primary', # Primary
-    'swth1secondary', # Secondary
+    'swth1secondary' # Secondary
 ]
 
 # CONSTANTS
