@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-
 # ExportDemexTradesAndTransfersToKoinly
 # Copyright © 2021 Eporediese for Switcheo / MaiTePora <3
 # Licenced under GPL
@@ -11,10 +8,6 @@
 # Creates CSV files in a format the the tax software Koinly understands, from Demex account trades and transfers for any Demex addresses
 # The CSV files are written in the location that this script is executed
 # This is not tax advice. The user accepts that the output of this tool should be reviewed for accuracy and completeness 
-
-
-# In[75]:
-
 
 # LIBRARYS
 # ------------------------------------------------------------------------------
@@ -33,10 +26,6 @@ from datetime import date
 # Regular expressions
 import re
 
-
-# In[76]:
-
-
 # PARAMETERS
 # ------------------------------------------------------------------------------
 # Provide the mneumonic of any wallet (can be an empty wallet)
@@ -48,10 +37,6 @@ demexAddresses = [
     'swth1secondary', # Secondary
 ]
 
-
-# In[77]:
-
-
 # CONSTANTS
 # ------------------------------------------------------------------------------
 demPK = Wallet(myMnemonic, network='mainnet')
@@ -61,17 +46,10 @@ clientDem = AuthenticatedClient(demPK, network='mainnet',trusted_ips=None, trust
 # ------------------------------------------------------------------------------
 print(f'Connected To Tradehub --- {demPK.address}')
 
-
-# In[78]:
-
-
 transDem = Transactions(demPK,
              trusted_ips=None,
              trusted_uris=['http://54.255.5.46:5001', 'http://175.41.151.35:5001'],
              network="mainnet")
-
-
-# In[79]:
 
 
 # Iterate over Demex adresses
@@ -120,10 +98,6 @@ for address in demexAddresses:
     tradeHeader = "Koinly Date,Pair,Side,Amount,Total,Fee Amount,Fee Currency,Order ID,Trade ID\n"
     tradeFile.write(tradeHeader)
 
-
-# In[80]:
-
-
 # Iterate over transfers
 # Koinly Date	Amount	Currency	Label	TxHash
 
@@ -162,10 +136,6 @@ for transfer in transfers:
 
     if (transferStatus == 'success'):
         transferFile.write(koinlyTimestamp + "," + transferAmount + "," + koinlySymbol.upper() + "," + transferType + "," + transferHash + "\n")
-
-
-# In[83]:
-
 
 # Iterate over trades
 # Koinly Date	Pair	Side	Amount	Total	Fee Amount	Fee Currency	Order ID	Trade ID
@@ -233,14 +203,9 @@ for trade in trades:
     tradeFile.write(koinlyTimestamp + "," + tradePair + "," + tradeSide + "," + str(tradeAmount) + "," + str(tradeTotal) + "," + tradeFeeAmount + "," + tradeFeeCurrency + "," + tradeOrderID + "," + tradeTradeID + "\n")
 
 
-# In[82]:
-
-
 transferFile.close()
 tradeFile.close()
 
-
-# In[ ]:
 
 
 
